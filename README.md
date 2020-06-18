@@ -12,6 +12,8 @@ $>  pat -app assets/hello-world -concurrency 3 -iterations 10
 
 ## Benchmarking
 
+![api](https://user-images.githubusercontent.com/2420543/85020002-f8b02100-b16f-11ea-8a8a-ea22e6882203.png)
+
 ```bash
 $> bash start_benchmark.sh
 ```
