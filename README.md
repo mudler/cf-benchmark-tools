@@ -2,7 +2,7 @@
 
 This repository contains recipes and utils to benchmark CF and applications pushed to it.
 
-## Creating workload
+## Generating workload
 
 You might need to replicate a "busy" environment in lab, you can download and install [PAT](https://github.com/cloudfoundry-incubator/pat) to simulate workload on your CF environment, for example:
 

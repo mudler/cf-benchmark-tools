@@ -19,6 +19,8 @@ HEY_URL="${HEY_URL:-https://storage.googleapis.com/hey-release/hey_linux_amd64}"
 
 apps=$(cf apps)
 API_URL="${API_URL:-$(cf api | awk '{ print $3 }' | head -n 1)}"
+API_URL="${API_URL/https/http}"
+
 APP_URL=${APP_URL:-$(echo "$apps" | awk '{ print $6 }' | tail -n 1)}
 APP_NAME=${APP_NAME:-$(echo "$apps" | awk '{ print $1 }' | tail -n 1)}
 APP_INTERNAL_URL=${APP_INTERNAL_URL:-$(cf ssh $APP_NAME -c "echo \$CF_INSTANCE_ADDR")}
