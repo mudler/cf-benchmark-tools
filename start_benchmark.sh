@@ -55,13 +55,15 @@ cat << EOF >> $BENCH_DATADIR/api.csv
 #footer: Connecting to the API
 EOF
 
-kubectl cp -c nfs-broker $ROOT_DIR/.bin/hey scf/nfs-broker-0:/bin/hey
-kubectl exec -n scf nfs-broker-0 -c  nfs-broker -ti -- hey -z "${TEST_DURATION}" -q "${TEST_RATE}" -c "${TEST_CONCURRENCY}" -o csv "http://${APP_INTERNAL_URL}" > $BENCH_DATADIR/nogorouter.csv
-cat << EOF >> $BENCH_DATADIR/nogorouter.csv
+if kubectl get pod nfs-broker-0 -n scf; then
+    kubectl cp -c nfs-broker $ROOT_DIR/.bin/hey scf/nfs-broker-0:/bin/hey
+    kubectl exec -n scf nfs-broker-0 -c  nfs-broker -ti -- hey -z "${TEST_DURATION}" -q "${TEST_RATE}" -c "${TEST_CONCURRENCY}" -o csv "http://${APP_INTERNAL_URL}" > $BENCH_DATADIR/nogorouter.csv
+    cat << EOF >> $BENCH_DATADIR/nogorouter.csv
 #header: kubectl exec -n scf nfs-broker-0 -c  nfs-broker -ti -- hey -z "${TEST_DURATION}" -q "${TEST_RATE}" -c "${TEST_CONCURRENCY}" -o csv "http://${APP_INTERNAL_URL}"
 #footer: Connecting to the app from the internal url
 EOF
-kubectl exec -n scf nfs-broker-0 -c nfs-broker -ti -- rm -rfv /bin/hey
+    kubectl exec -n scf nfs-broker-0 -c nfs-broker -ti -- rm -rfv /bin/hey
+fi
 
 
 if [ -f "$ROOT_DIR/create_graphs.sh" ]; then
