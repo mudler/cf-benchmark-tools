@@ -1,7 +1,7 @@
 #!/bin/bash
 # usage: create_graphs <dir>
 
-if ! [ -x "$(command -v gnuplog)" ]; then 
+if ! [ -x "$(command -v gnuplot)" ]; then 
     echo "Gnuplot not installed, exiting"
     exit 0
 fi
